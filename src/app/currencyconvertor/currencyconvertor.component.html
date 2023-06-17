@@ -1,0 +1,37 @@
+<div class="main-div">
+    <div class="convertor-div">
+        <h2>{{title}}</h2>
+        <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+            <div class="cols result">
+                <label for="result">Exchange Rate</label>
+                <input id="result" name="result" placeholder="$0" [value]="result" readonly />
+            </div>
+            <div class="cols from">
+                <label for="from">From</label>
+                <select id="from" name="from" formControlName="from">
+                    <option value="select">Select</option>
+                    <option *ngFor="let symbol of currencySymbols" [value]="symbol.key">{{ symbol.key }}</option>
+                </select>
+            </div>
+            <div class="cols to">
+                <label for="to">To</label>
+                <select id="to" name="to" formControlName="to">
+                    <option value="select">Select</option>
+                    <option *ngFor="let symbol of currencySymbols" [value]="symbol.key">{{ symbol.key }}</option>
+                </select>
+            </div>
+            <div class="cols amount">
+                <label for="amount">Amount</label>
+                <input type="text" name="amount" id="amount" placeholder="ex. 100" formControlName="amount"
+                    appNumericOnly autocomplete="off" />
+                <!-- <input type="text" name="amount" id="amount" placeholder="ex. 100" formControlName="amount" /> -->
+            </div>
+            <div class="cols button">
+                <button type="submit" [disabled]="!currencyForm.valid || isLoading" [ngClass]="{'invalid': !currencyForm.valid}">
+                    <ng-container *ngIf="!isLoading">CONVERT</ng-container>
+                    <ng-container *ngIf="isLoading">...CONVERTING...</ng-container>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
