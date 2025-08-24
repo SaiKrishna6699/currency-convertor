@@ -1,37 +1,85 @@
 <div class="main-div">
-    <div class="convertor-div">
-        <h2>{{title}}</h2>
-        <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
-            <div class="cols result">
-                <label for="result">Exchange Rate</label>
-                <input id="result" name="result" placeholder="$0" [value]="result" readonly />
-            </div>
-            <div class="cols from">
-                <label for="from">From</label>
-                <select id="from" name="from" formControlName="from">
-                    <option value="select">Select</option>
-                    <option *ngFor="let symbol of currencySymbols" [value]="symbol.key">{{ symbol.key }}</option>
-                </select>
-            </div>
-            <div class="cols to">
-                <label for="to">To</label>
-                <select id="to" name="to" formControlName="to">
-                    <option value="select">Select</option>
-                    <option *ngFor="let symbol of currencySymbols" [value]="symbol.key">{{ symbol.key }}</option>
-                </select>
-            </div>
-            <div class="cols amount">
-                <label for="amount">Amount</label>
-                <input type="text" name="amount" id="amount" placeholder="ex. 100" formControlName="amount"
-                    appNumericOnly autocomplete="off" />
-                <!-- <input type="text" name="amount" id="amount" placeholder="ex. 100" formControlName="amount" /> -->
-            </div>
-            <div class="cols button">
-                <button type="submit" [disabled]="!currencyForm.valid || isLoading" [ngClass]="{'invalid': !currencyForm.valid}">
-                    <ng-container *ngIf="!isLoading">CONVERT</ng-container>
-                    <ng-container *ngIf="isLoading">...CONVERTING...</ng-container>
-                </button>
-            </div>
-        </form>
-    </div>
+  <div class="convertor-div">
+    <h2>{{ title }}</h2>
+    <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+      <div class="cols result">
+        <label for="result">Exchange Rate</label>
+        <input
+          id="result"
+          name="result"
+          placeholder="$0"
+          [value]="result"
+          readonly
+        />
+      </div>
+      <div class="cols selects-row">
+        <div class="from">
+          <label for="from">From</label>
+          <ngx-select-dropdown
+            [config]="dropdownConfig"
+            [options]="currencySymbols"
+            formControlName="from"
+          >
+          </ngx-select-dropdown>
+        </div>
+
+        <div class="swap">
+          <button
+            type="button"
+            (click)="swapCurrencies()"
+            [disabled]="
+              !currencyForm.get('from')?.value || !currencyForm.get('to')?.value
+            "
+            class="swap-btn"
+            title="Swap currencies"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon"
+            >
+              <path
+                d="M847.9 592H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h605.2L612.9 851c-4.1 5.2-.4 13 6.3 13h72.5c4.9 0 9.5-2.2 12.6-6.1l168.8-214.1c16.5-21 1.6-51.8-25.2-51.8M872 356H266.8l144.3-183c4.1-5.2.4-13-6.3-13h-72.5c-4.9 0-9.5 2.2-12.6 6.1L150.9 380.2c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="to">
+          <label for="to">To</label>
+          <ngx-select-dropdown
+            [config]="dropdownConfig"
+            [options]="currencySymbols"
+            formControlName="to"
+          >
+          </ngx-select-dropdown>
+        </div>
+      </div>
+      <div class="cols amount">
+        <label for="amount">Amount</label>
+        <input
+          type="text"
+          name="amount"
+          id="amount"
+          placeholder="ex. 100"
+          formControlName="amount"
+          appNumericOnly
+          autocomplete="off"
+        />
+        <!-- <input type="text" name="amount" id="amount" placeholder="ex. 100" formControlName="amount" /> -->
+      </div>
+      <div class="cols button">
+        <button
+          type="submit"
+          [disabled]="!currencyForm.valid || isLoading"
+          [ngClass]="{ invalid: !currencyForm.valid }"
+        >
+          <ng-container *ngIf="!isLoading">CONVERT</ng-container>
+          <ng-container *ngIf="isLoading">...CONVERTING...</ng-container>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

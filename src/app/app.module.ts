@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +21,8 @@ import { NumericOnlyDirective } from './numeric-only.directive';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
