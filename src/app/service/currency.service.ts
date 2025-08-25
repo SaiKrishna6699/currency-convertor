@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class CurrencyService {
 
   private apiUrl = 'https://api.apilayer.com/fixer/';
-  private apiKey = 'MiipP5PbZh70DkUd3rZxBY62KcLFXJHm';
+  private apiKey = 'RmicNsGO9GNd4RwU4z2MRsxbWgESyEBT';
 
   constructor(private http: HttpClient) { }
 
